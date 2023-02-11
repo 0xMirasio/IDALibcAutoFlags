@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -g
-TARGET=client
+TARGET=server
 
 default:
 	$(CC) $(CFLAGS) $(TARGET).c -o $(TARGET)
