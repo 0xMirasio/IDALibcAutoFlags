@@ -10,7 +10,7 @@ Feel free to pull requests to add new functions.
 ## Preview
 <p align="center">
   <img src="img/before.png" width="350" title="hover text">
-  <img src="img/after.png" width="350" alt="accessibility text">
+  <img src="img/output.png" width="350" alt="accessibility text">
 </p>
 
 ## Install 
