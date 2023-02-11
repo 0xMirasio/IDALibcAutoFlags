@@ -1,0 +1,6 @@
+{
+    "syscall" : [[0,"syscall"]],
+    "prctl" : [[0,"prctl"], [1, "prctl_seccomp"]],
+    "open" : [[1, "fcntl"]],
+    "mmap" : [[2,"mmap_prot"], [3, "mmap_map"]]
+}
