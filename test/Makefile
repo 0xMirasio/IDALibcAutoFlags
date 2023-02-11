@@ -1,9 +1,9 @@
 CC=gcc
 CFLAGS=-Wall -g
-TARGET=example
+TARGET=client
 
 default:
 	$(CC) $(CFLAGS) $(TARGET).c -o $(TARGET)
 
 clean:
-	rm $(TARGET))
+	rm $(TARGET)
