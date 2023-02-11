@@ -8,10 +8,10 @@ All libc standard enum which are supported are in enum/ folder.
 Feel free to pull requests to add new functions.
 
 ## Preview
-
-![Screenshot]("./img/before.png")
-
-![Screenshot]("./img/after.png")
+<p align="center">
+  <img src="img/before.png" width="350" title="hover text">
+  <img src="img/after.png" width="350" alt="accessibility text">
+</p>
 
 ## Install 
 
@@ -24,7 +24,7 @@ cd IDALibcAutoFlags
 
 ## Usage
 
-Press CTRL+Shit+Z to use plugins, nothing more ! 
+Press CTRL+Shit+Z to use plugins, nothing more ! (+F5 to refresh page for decompilation output)
 
 ## Add new functions
 

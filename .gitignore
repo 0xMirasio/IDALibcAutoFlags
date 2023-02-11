@@ -1,0 +1,6 @@
+*.pyc
+test/example
+test/example.i64
+test/example.id*
+test/example.til
+test/example.nam
