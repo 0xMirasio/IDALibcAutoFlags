@@ -28,7 +28,7 @@ On Linux with Wine windows IDA
 ```bash
 git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
 cd IDALibcAutoFlags 
-WINE=1 ./install.sh
+USEWINE=1 ./install.sh
 ```
 
 On Windows
