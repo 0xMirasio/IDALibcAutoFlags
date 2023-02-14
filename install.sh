@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TARGET="autolibcflags.py"
-USEWINE=1
+USEWINE?=0
 HOME_CACHE="$HOME/.cache/AutoLibcFlags/"
 REGISTER_FILE="functions.json"
 

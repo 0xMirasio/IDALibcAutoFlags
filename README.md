@@ -15,10 +15,28 @@ Feel free to pull requests to add new functions.
 
 ## Install 
 
+On Linux
+
 ```bash
 git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
 cd IDALibcAutoFlags 
 ./install.sh
+```
+
+On Linux with Wine windows IDA
+
+```bash
+git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
+cd IDALibcAutoFlags 
+WINE=1 ./install.sh
+```
+
+On Windows
+
+```bash
+git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
+cd IDALibcAutoFlags 
+cmd.exe /c install.bat
 ```
 
 
