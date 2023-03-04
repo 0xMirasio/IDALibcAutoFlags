@@ -1,5 +1,8 @@
 ### AutoLibcFlags
 
+DEAD PROJECT
+
+
 AutoLibcFlags is a IDApro plugin that will automatically replace the flags in libc standard functions with enum.  
 The plugin support also custom functions, See #Adding new functions. 
 Only X64 is supported for the moment. 
