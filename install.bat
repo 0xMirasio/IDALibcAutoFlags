@@ -20,10 +20,12 @@ copy %TARGET% "%INSTALLDIR%"
 echo Plugins installed - OK
 
 
-if not exist "%HOME_CACHE%" (
-    mkdir "%HOME_CACHE%"
-    echo Cache created - OK
+IF EXIST "%HOME_CACHE%" (
+    RD /S /Q "%HOME_CACHE%"
 )
+
+MKDIR "%HOME_CACHE%"
+ECHO Cache cleared and created - OK
 
 copy %REGISTER_FILE% "%HOME_CACHE%"
 copy "enum" "%HOME_CACHE%"

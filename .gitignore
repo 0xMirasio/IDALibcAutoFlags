@@ -1,6 +1,7 @@
 *.pyc
 test/example
-test/example.i64
-test/example.id*
-test/example.til
-test/example.nam
+test/server
+*.i64
+id*
+*.til
+*.nam

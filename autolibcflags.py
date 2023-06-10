@@ -12,6 +12,7 @@ import ida_hexrays
 import json
 import platform
 import ida_typeinf
+import ida_enum
 
 VERSION="1.0"
 p_initialized = False
@@ -81,12 +82,35 @@ class AutoLibcFlags(idaapi.plugin_t):
                         self.enum[filename].append([enum_value, enum_name])
 
     def AddEnum(self):
+        root = idaapi.get_std_dirtree(idaapi.DIRTREE_ENUMS)
+
+        err = root.mkdir("IDAAutoLibcFlags")
+        if err not in (idaapi.DTE_OK, idaapi.DTE_ALREADY_EXISTS):
+            print(f'Could not create IDAAutoLibcFlags structures directory: "{root.errstr(err)}"')
+            return 1
+        
         for enum in self.enum:
-            enum_name =  "AutoLibc_{0}".format(enum)
-            idaenum = idc.add_enum(-1, enum_name, 0)
+
+            if ida_enum.get_enum(enum) != idaapi.BADNODE: #cleanup old enums
+                ida_enum.del_enum(ida_enum.get_enum(enum))
+                    
+            idaenum = idc.add_enum(-1, enum, 0)
+            if idaenum == idaapi.BADADDR:
+                print("Couldn't not create enum")
+                return 1
+
             number_added = 0
+            
+            err = root.rename(enum, f"IDAAutoLibcFlags/{enum}")
+            if err not in (idaapi.DTE_OK, idaapi.DTE_ALREADY_EXISTS, idaapi.DTE_NOT_FOUND):
+                print(f'Could not moove {enum} into IDAAutoLibcflags directory: "{root.errstr(err)}"')
+                return 1
+
             for enum_value, enum_member_name in self.enum[enum]:
-                idc.add_enum_member(idaenum, enum_member_name, int(enum_value), -1)
+                err = idc.add_enum_member(idaenum, enum_member_name, int(enum_value), -1)
+                if err:
+                    print(f'Could not populate {enum} on {enum_member_name} = {enum_value}  : err = {err}')
+                
                 number_added += 1
 
 
@@ -130,10 +154,11 @@ class AutoLibcFlags(idaapi.plugin_t):
             for i in range(len(self.functions_libc_supported[fun])):
 
                 index = self.functions_libc_supported[fun][i][0]
-                enum_name = "AutoLibc_{0}".format(self.functions_libc_supported[fun][i][1])
+                enum_name = "{0}".format(self.functions_libc_supported[fun][i][1])
                 if enum_name == idc.BADADDR:
                     print("Enum : {0} don't exist !".format(enum_name))
                     continue
+                
 
                 for ea in idautils.Functions():
                     addr_patch = self.lookupFunction(ea, fun)
@@ -157,9 +182,11 @@ class AutoLibcFlags(idaapi.plugin_t):
 
         self.registerFunctionSupported()
         print("Registered all functions")
-
         self.ImportEnum()
-        self.AddEnum()
+        print("Imported Know enums")
+
+        if self.AddEnum():
+            return -1
         print("Done caching Enum definitions to IDB")
         self.applyEnum()
         print("Done Applying Enum DATA. Use F5 to refresh page cache")
