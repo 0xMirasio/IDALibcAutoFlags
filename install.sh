@@ -1,15 +1,9 @@
 #!/bin/bash
 
 TARGET="autolibcflags.py"
-USEWINE?=0
 HOME_CACHE="$HOME/.cache/AutoLibcFlags/"
 REGISTER_FILE="functions.json"
-
-if [ $USEWINE -eq 1 ]; then
-    INSTALLDIR="$HOME/.wine/drive_c/users/$USER/AppData/Roaming/Hex-Rays/IDA Pro/plugins/" 
-else
-    INSTALLDIR="$HOME/.idapro/plugins/"
-fi
+INSTALLDIR="$HOME/.idapro/plugins/"
 
 
 echo "File will be installed to $INSTALLDIR"

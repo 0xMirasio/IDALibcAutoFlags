@@ -10,6 +10,8 @@ import sys
 from collections import defaultdict
 import ida_hexrays
 import json
+import platform
+import ida_typeinf
 
 VERSION="1.0"
 p_initialized = False
@@ -20,8 +22,8 @@ class AutoLibcFlags(idaapi.plugin_t):
     comment = "Print comment on Flags enum/explanation near libc function call"
     help = "AutoLibcFlags Help"
     wanted_name = "AutoLibcFlags"
-    flags = idaapi.PLUGIN_KEEP
-    wanted_hotkey= "Ctrl+Shift-Z"
+    flags = idaapi.PLUGIN_KEEP | idaapi.PLUGIN_MOD | idaapi.PLUGIN_PROC
+    wanted_hotkey= "Ctrl+Shift+F1"
 
 
     def init(self):
@@ -44,17 +46,25 @@ class AutoLibcFlags(idaapi.plugin_t):
         pass
 
     def sanityCheck(self):
-        user = os.getenv("USER")
-        self.enum_cache = "/home/" + user + "/.cache/AutoLibcFlags"
+
+        if platform.system() == 'Windows':
+            self.enum_cache = os.path.join(os.environ['APPDATA'], 'IdaAutoLibcFlags')
+            self.os = 'win'
+        elif platform.system() == 'Linux':
+            self.enum_cache == os.path.join(os.environ['HOME'] ,".cache/IdaAutoLibcFlags")
+            self.os = 'linux'
+        else:
+            print('[IDAAutoLibcFlags] Unknown operating system | Not supported')
+            return
+
         if os.path.exists(self.enum_cache):
             return 0
         else:
-            print("Didn't not find enum cache ! Please install plugins with ./install.sh script")
+            print("Didn't not find enum cache ! Please install plugins with ./install.sh | ./install.bat script")
             return 1
 
     def registerFunctionSupported(self):
         filepath = os.path.join(self.enum_cache, "functions.json")
-        print(filepath)
         with open(filepath) as fd:
             self.functions_libc_supported = json.load(fd)
 
@@ -78,7 +88,6 @@ class AutoLibcFlags(idaapi.plugin_t):
             for enum_value, enum_member_name in self.enum[enum]:
                 idc.add_enum_member(idaenum, enum_member_name, int(enum_value), -1)
                 number_added += 1
-            print("{0} : Added a total of {1} members".format(enum, number_added))
 
 
     def lookupFunction(self, ea, name):
@@ -135,9 +144,8 @@ class AutoLibcFlags(idaapi.plugin_t):
                         arg_addr = self.find_args_with_index(index,address)
                         if arg_addr:
                             enumida = idaapi.get_enum(enum_name)
-                            print("[debug] trns {0} for {1} at {2}".format(enum_name, fun, hex(arg_addr)))
                             r = idc.op_enum(arg_addr, 1, enumida, 0)
-                            if (r == -1): #sometime IDA just fuck it and fail. But it's fine they tell it in their documentation :))))
+                            if (r == -1): #sometime IDA just fail.
                                 idc.op_enum(arg_addr, 1, enumida, 0)
 
 
@@ -154,6 +162,7 @@ class AutoLibcFlags(idaapi.plugin_t):
         self.AddEnum()
         print("Done caching Enum definitions to IDB")
         self.applyEnum()
+        print("Done Applying Enum DATA. Use F5 to refresh page cache")
         
     def run(self, arg):
         self.main()

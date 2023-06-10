@@ -4,7 +4,7 @@ setlocal enableextensions
 echo Installing IDALibcFlags Windows version
 
 set INSTALLDIR=%APPDATA%\\Hex-Rays\\IDA Pro\\plugins\
-set TARGET="autolibcflags-windows.py"
+set TARGET="autolibcflags.py"
 set HOME_CACHE=%APPDATA%\\IdaAutoLibcFlags\\
 set REGISTER_FILE="functions.json"
 

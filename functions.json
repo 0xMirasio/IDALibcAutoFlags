@@ -1,9 +1,9 @@
 {
-    "syscall" : [[0,"syscall"]],
-    "prctl" : [[0,"prctl"], [1, "prctl_seccomp"]],
-    "open" : [[1, "fcntl"]],
-    "mmap" : [[2,"mmap_prot"], [3, "mmap_map"]],
-    "socket" : [[0,"socket"], [1, "socket_type"]],
-    "setsockopt" : [[1,"socket_cst"], [2, "socket_cst"]],
-    "htonl": [[0, "inet_in"]]
+    "syscall" : [[0,"syscall.arg0"]],
+    "prctl" : [[0,"prctl.arg0"], [1, "prctl.arg1"]],
+    "open" : [[1, "fcntl.arg0"]],
+    "mmap" : [[2,"mmap.arg0"], [3, "mmap_map"]],
+    "socket" : [[0,"socket.arg0"], [1, "socket_type"]],
+    "setsockopt" : [[1,"socket_cst.arg0"], [2, "socket_cst.arg0"]],
+    "htonl": [[0, "inet.arg0"]]
 }
