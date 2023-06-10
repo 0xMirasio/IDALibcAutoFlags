@@ -1,9 +1,10 @@
 ### AutoLibcFlags
 
-
 AutoLibcFlags is a IDApro plugin that will automatically replace the flags in libc standard functions with enum.  
 The plugin support also custom functions, See #Adding new functions. 
 Only X64 is supported for the moment. 
+
+**REQUIRE IDA7.6 OR SUPERIOR**
 
 All libc standard enum which are supported are in enum/ folder. 
 Feel free to pull requests to add new functions.
@@ -24,26 +25,17 @@ cd IDALibcAutoFlags
 ./install.sh
 ```
 
-On Linux with Wine windows IDA
-
-```bash
-git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
-cd IDALibcAutoFlags 
-USEWINE=1 ./install.sh
-```
-
 On Windows
 
 ```bash
 git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
 cd IDALibcAutoFlags 
-cmd.exe /c install.bat
+cmd /c install.bat
 ```
-
 
 ## Usage
 
-Press CTRL+Shit+Z to use plugins, nothing more ! (+F5 to refresh page for decompilation output)
+Press CTRL+Shit+F1 or Edit->Plugins->IDALibcAutoFlags to use plugins! (+F5 to refresh page for decompilation output)
 
 ## Add new functions
 
