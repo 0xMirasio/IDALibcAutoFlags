@@ -38,7 +38,7 @@ for line in headerFile:
 
 print("Result : ")
 for key in toSave:
-    print("[{0}] = {1}".format(key,toSave[key]))
+    print("{1} {0}".format(key,toSave[key]))
 
 if args.output:
     with open(args.output, 'w') as fd:

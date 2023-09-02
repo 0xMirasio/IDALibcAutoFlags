@@ -2,6 +2,6 @@
 test/example
 test/server
 *.i64
-id*
+*.id*
 *.til
 *.nam

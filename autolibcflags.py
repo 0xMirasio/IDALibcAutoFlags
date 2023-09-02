@@ -84,6 +84,7 @@ class AutoLibcFlags(idaapi.plugin_t):
     def AddEnum(self):
         root = idaapi.get_std_dirtree(idaapi.DIRTREE_ENUMS)
 
+        #todo : check we are IDA > 7.4 , if not we can't use get_std_dirtree()
         err = root.mkdir("IDAAutoLibcFlags")
         if err not in (idaapi.DTE_OK, idaapi.DTE_ALREADY_EXISTS):
             print(f'Could not create IDAAutoLibcFlags structures directory: "{root.errstr(err)}"')
@@ -150,7 +151,7 @@ class AutoLibcFlags(idaapi.plugin_t):
     def applyEnum(self):
 
         for fun in self.functions_libc_supported:
-
+            
             for i in range(len(self.functions_libc_supported[fun])):
 
                 index = self.functions_libc_supported[fun][i][0]
@@ -162,8 +163,11 @@ class AutoLibcFlags(idaapi.plugin_t):
 
                 for ea in idautils.Functions():
                     addr_patch = self.lookupFunction(ea, fun)
+                    print(fun, addr_patch)
+
                     if len(addr_patch) == 0:
                         continue
+                    
 
                     for address in addr_patch:
                         arg_addr = self.find_args_with_index(index,address)
@@ -171,7 +175,7 @@ class AutoLibcFlags(idaapi.plugin_t):
                             enumida = idaapi.get_enum(enum_name)
                             r = idc.op_enum(arg_addr, 1, enumida, 0)
                             if (r == -1): #sometime IDA just fail.
-                                idc.op_enum(arg_addr, 1, enumida, 0)
+                                r = idc.op_enum(arg_addr, 1, enumida, 0)
 
 
 
