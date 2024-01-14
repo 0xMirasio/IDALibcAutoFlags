@@ -1,0 +1,12 @@
+0 O_RDONLY
+1 O_WRONLY
+2 O_RDWR
+8 O_APPEND
+100 O_CREAT
+200 O_TRUNC
+400 O_EXCL
+4000 O_TEXT
+8000 O_BINARY
+#define _O_WTEXT       0x10000 // file mode is UTF16 (translated)
+#define _O_U16TEXT     0x20000 // file mode is UTF16 no BOM (translated)
+#define _O_U8TEXT      0x40000 // file mode is UTF8  no BOM (translated)

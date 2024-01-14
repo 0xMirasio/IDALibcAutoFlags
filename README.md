@@ -17,20 +17,11 @@ Feel free to pull requests to add new functions.
 
 ## Install 
 
-On Linux
 
 ```bash
 git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
 cd IDALibcAutoFlags 
-./install.sh
-```
-
-On Windows
-
-```bash
-git clone git@github.com:0xMirasio/IDALibcAutoFlags.git
-cd IDALibcAutoFlags 
-cmd /c install.bat
+python3 install.py
 ```
 
 ## Usage
@@ -65,8 +56,4 @@ You can also use the parseHeaders.py script in scripts for autoParse C header fi
 ## Bug and limitations 
 
 Only x64 classical is supported for the moment. Bug and fails will occur on others platforms.
-
-## Future work
-
-x32 support
-enum decomposition of flags : 0x3 => READ+WRITE(0x1 + 0x2)
+Lot of missing flags

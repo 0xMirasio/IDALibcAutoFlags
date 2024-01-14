@@ -1,10 +1,10 @@
 {
-    "syscall" : [[0,"syscall_arg0"]],
-    "prctl" : [[0,"prctl_arg0"], [1, "prctl_arg1"]],
-    "open" : [[1, "fcntl_arg0"]],
-    "mmap" : [[2,"mmap_arg0"], [3, "mmap_map"]],
-    "socket" : [[0,"socket_arg0"], [1, "socket_type"]],
-    "setsockopt" : [[1,"socket_cst_arg0"], [2, "socket_cst_arg0"]],
-    "htonl": [[0, "inet_arg0"]],
-    "sigaction" : [[0, "sigaction_arg0"]]
+    "syscall" : [[0,"syscall_flag0"]],
+    "prctl" : [[0,"prctl_flag0"], [1, "prctl_flag1"]],
+    "open" : [[1, "fcntl_flag0"]],
+    "mmap" : [[2,"mmap_flag0"], [3, "mmap_flag1"]],
+    "socket" : [[0,"socket_flag0"], [1, "socket_flag1"]],
+    "setsockopt" : [[1,"socket_cst_flag0"], [2, "socket_cst_flag0"]],
+    "htonl": [[0, "inet_flag0"]],
+    "sigaction" : [[0, "sigaction_flag0"]]
 }

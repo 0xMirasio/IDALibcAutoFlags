@@ -1,9 +1,10 @@
 CC=gcc
 CFLAGS=-Wall -g
-TARGET=server
 
 default:
-	$(CC) $(CFLAGS) $(TARGET).c -o $(TARGET)
+	$(CC) $(CFLAGS) server.c -o server
+	$(CC) $(CFLAGS) example.c -o example
+	$(CC) $(CFLAGS) client.c -o client
 
 clean:
-	rm $(TARGET)
+	rm *.o server example client

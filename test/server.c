@@ -18,7 +18,6 @@ int main(int argc,char **argv)
     struct sockaddr_in client;
     char buf[MAX_LEN];
     FILE *fp;
-    int i;
     char *filename = "2new.jpg ";
 
     listensd=socket(AF_INET,SOCK_STREAM,0);

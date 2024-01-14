@@ -1,17 +1,10 @@
 import idaapi
 import idc
-import sys
 import idautils
-import ida_funcs
-import time
 import os
-import subprocess
 import sys
-from collections import defaultdict
-import ida_hexrays
 import json
 import platform
-import ida_typeinf
 import ida_enum
 
 VERSION="1.0"
@@ -41,6 +34,19 @@ class AutoLibcFlags(idaapi.plugin_t):
             print(f"AutoLibcFlags {VERSION} | Thibault Poncetta")
             self.enum = {}
 
+        print(f"AutoLibcFlags {VERSION}")
+        if self.sanityCheck():
+            return -1
+
+        self.registerFunctionSupported()
+        print("Registered all functions")
+        self.ImportEnum()
+        print("Imported Know enums")
+
+        if self.AddEnum():
+            return -1
+        print("Done caching Enum definitions to IDB")
+
         return idaapi.PLUGIN_KEEP
 
     def term(self):
@@ -61,7 +67,7 @@ class AutoLibcFlags(idaapi.plugin_t):
         if os.path.exists(self.enum_cache):
             return 0
         else:
-            print("Didn't not find enum cache ! Please install plugins with ./install.sh | ./install.bat script")
+            print("Didn't not find enum cache ! Please install plugins with ./install.py script")
             return 1
 
     def registerFunctionSupported(self):
@@ -72,9 +78,10 @@ class AutoLibcFlags(idaapi.plugin_t):
 
     def ImportEnum(self):
       
-        for filename in os.listdir(self.enum_cache):
-            filepath = os.path.join(self.enum_cache, filename)
-            if os.path.isfile(filepath) and "functions.json" not in filename:
+        enumdir = os.path.join(self.enum_cache, "enum")
+        for filename in os.listdir(enumdir):
+            filepath = os.path.join(enumdir, filename)
+            if os.path.isfile(filepath):
                 with open(filepath, 'r') as f:
                     self.enum[filename] = []
                     for line in f:
@@ -146,33 +153,30 @@ class AutoLibcFlags(idaapi.plugin_t):
                     return ea
 
         return None
-        
+           
 
     def applyEnum(self):
 
         for fun in self.functions_libc_supported:
-            
             for i in range(len(self.functions_libc_supported[fun])):
 
                 index = self.functions_libc_supported[fun][i][0]
                 enum_name = "{0}".format(self.functions_libc_supported[fun][i][1])
-                if enum_name == idc.BADADDR:
-                    print("Enum : {0} don't exist !".format(enum_name))
-                    continue
-                
-
+                               
                 for ea in idautils.Functions():
                     addr_patch = self.lookupFunction(ea, fun)
-                    print(fun, addr_patch)
-
                     if len(addr_patch) == 0:
                         continue
                     
-
                     for address in addr_patch:
                         arg_addr = self.find_args_with_index(index,address)
                         if arg_addr:
+
                             enumida = idaapi.get_enum(enum_name)
+                            if enum_name == idc.BADADDR:
+                                print("Enum : {0} don't exist !".format(enum_name))
+                                continue
+
                             r = idc.op_enum(arg_addr, 1, enumida, 0)
                             if (r == -1): #sometime IDA just fail.
                                 r = idc.op_enum(arg_addr, 1, enumida, 0)
@@ -180,18 +184,6 @@ class AutoLibcFlags(idaapi.plugin_t):
 
 
     def main(self):
-        print(f"AutoLibcFlags {VERSION}")
-        if self.sanityCheck():
-            return -1
-
-        self.registerFunctionSupported()
-        print("Registered all functions")
-        self.ImportEnum()
-        print("Imported Know enums")
-
-        if self.AddEnum():
-            return -1
-        print("Done caching Enum definitions to IDB")
         self.applyEnum()
         print("Done Applying Enum DATA. Use F5 to refresh page cache")
         

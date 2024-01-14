@@ -18,12 +18,9 @@
 int main(int argc,char **argv)
 {
     int sd;
-    int rn;
-    struct sockaddr_in client,server;
+    struct sockaddr_in server;
     struct hostent *h;
     int fq;
-    int i;
-    char ch;
     struct stat st;
     char *filename = "2.jpg";
     int len = 0;
@@ -69,7 +66,7 @@ int main(int argc,char **argv)
         exit(1);
     }
 
-    stat(filename,&st);//获取文件大小
+    stat(filename,&st);
     len = st.st_size;
 
     if(sendfile(sd,fq,0,len) < 0)
