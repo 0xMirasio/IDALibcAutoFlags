@@ -4,7 +4,14 @@ AutoLibcFlags is a IDApro plugin that will automatically replace the flags in li
 The plugin support also custom functions, See #Adding new functions. 
 Only X64 is supported for the moment. 
 
-**REQUIRE IDA7.6 OR SUPERIOR**
+### WARNING
+
+This is a simple POC project.
+This project isn't very usefull since enum flag will change following source and compilator so this is basically untrackable.
+I'm currently looking for a fiable source of differents enums for differents compilator. 
+the goal will be to detect the compilator in the binary and apply the good enum. 
+
+**REQUIRE IDA7.X+ OR SUPERIOR**
 
 All libc standard enum which are supported are in enum/ folder. 
 Feel free to pull requests to add new functions.
