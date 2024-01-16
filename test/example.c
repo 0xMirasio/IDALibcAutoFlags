@@ -56,6 +56,7 @@ int main(int argc, char **argv) {
     }
 
     close(fd);
+    
 
     fd = open(argv[1], O_RDWR | O_APPEND | O_CREAT); //fcntl
     if (fd == -1) {

@@ -115,7 +115,8 @@ class AutoLibcFlags(idaapi.plugin_t):
                 return 1
 
             for enum_value, enum_member_name in self.enum[enum]:
-                err = idc.add_enum_member(idaenum, enum_member_name, int(enum_value), -1)
+                                 
+                err = idc.add_enum_member(idaenum, enum_member_name, int(enum_value, 10), -1)
                 if err:
                     print(f'Could not populate {enum} on {enum_member_name} = {enum_value}  : err = {err}')
                 
@@ -153,7 +154,7 @@ class AutoLibcFlags(idaapi.plugin_t):
                     return ea
 
         return None
-           
+
 
     def applyEnum(self):
 
@@ -173,6 +174,7 @@ class AutoLibcFlags(idaapi.plugin_t):
                         if arg_addr:
 
                             enumida = idaapi.get_enum(enum_name)
+                            value = idc.get_operand_value(arg_addr, 1)
                             if enum_name == idc.BADADDR:
                                 print("Enum : {0} don't exist !".format(enum_name))
                                 continue

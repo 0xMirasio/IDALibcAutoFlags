@@ -5,3 +5,5 @@ test/server
 *.id*
 *.til
 *.nam
+
+test/libc_bin

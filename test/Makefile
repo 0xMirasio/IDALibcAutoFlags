@@ -2,9 +2,9 @@ CC=gcc
 CFLAGS=-Wall -g
 
 default:
-	$(CC) $(CFLAGS) server.c -o server
-	$(CC) $(CFLAGS) example.c -o example
-	$(CC) $(CFLAGS) client.c -o client
+	$(CC) $(CFLAGS) server.c -o server.bin
+	$(CC) $(CFLAGS) example.c -o example.bin
+	$(CC) $(CFLAGS) client.c -o client.bin
 
 clean:
-	rm *.o server example client
+	rm *.o *.bin

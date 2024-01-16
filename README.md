@@ -7,9 +7,7 @@ Only X64 is supported for the moment.
 ### WARNING
 
 This is a simple POC project.
-This project isn't very usefull since enum flag will change following source and compilator so this is basically untrackable.
-I'm currently looking for a fiable source of differents enums for differents compilator. 
-the goal will be to detect the compilator in the binary and apply the good enum. 
+This project isn't very usefull since enum flag will change following source and compilator so i will only track recent linux source.
 
 **REQUIRE IDA7.X+ OR SUPERIOR**
 
@@ -19,7 +17,7 @@ Feel free to pull requests to add new functions.
 ## Preview
 <p align="center">
   <img src="img/before.png" width="350" title="before execution">
-  <img src="img/output.png" width="450" title="after execution">
+  <img src="img/output.png" width="370" title="after execution">
 </p>
 
 ## Install 
