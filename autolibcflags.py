@@ -58,7 +58,7 @@ class AutoLibcFlags(idaapi.plugin_t):
             self.enum_cache = os.path.join(os.environ['APPDATA'], 'IdaAutoLibcFlags')
             self.os = 'win'
         elif platform.system() == 'Linux':
-            self.enum_cache == os.path.join(os.environ['HOME'] ,".cache/IdaAutoLibcFlags")
+            self.enum_cache = os.path.join(os.environ['HOME'] ,".idalibcflags")
             self.os = 'linux'
         else:
             print('[IDAAutoLibcFlags] Unknown operating system | Not supported')
